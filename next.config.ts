@@ -4,4 +4,14 @@ const nextConfig: NextConfig = {
   /* config options here */
 };
 
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+});
+
+module.exports = withPWA({
+  // andere config
+});
+
 export default nextConfig;
