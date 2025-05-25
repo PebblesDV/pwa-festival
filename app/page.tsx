@@ -1,35 +1,32 @@
 "use client";
-import Map from "../components/Map";
+// import Map from "../components/Map";
+import dynamic from "next/dynamic";
+const Map = dynamic(() => import("../components/Map"), {
+  ssr: false,
+});
+import LineupSchedule from "../components/LineupSchedule";
 
 export default function Home() {
   return (
-    <div className="">
-      {/* <header className="flex justify-end w-full h-fit py-2">
-        <button className="flex items-center">
-          <i className="ri-equalizer-line text-3xl text-gray-500"></i>
-        </button>
+    <div className="p-4">
+      <header className="mb-8">
+        <h1 className="text-2xl font-bold">HeartU Festival</h1>
       </header>
 
-      <main className="flex flex-col gap-10 h-screen">
-        <div className="flex flex-col">
-          <h3 className="text-gray-500">Welkom!</h3>
-          <h1 className="text-black">HeartU informatie</h1>
-        </div>
+      <main className="flex flex-col gap-8">
+        <section>
+          <h2 className="text-xl font-bold mb-4">Festival Map</h2>
+          <div className="bg-black rounded-lg overflow-hidden">
+            <Map />
+          </div>
+        </section>
 
-        <div className="flex bg-pink-400 w-full h-1/4 rounded-xl">
-          <p>Bekijk hier de festival map</p>
-        </div>
-
-        <div className="flex bg-pink-400 w-full h-1/4 rounded-xl">
-          <p>Bekijk hier de live line up</p>
-        </div>
-      </main> */}
-
-      <main>
-        <h1 className="text-2xl font-bold mb-4">Festival kaart</h1>
-        <div className="bg-black">
-          <Map />
-        </div>
+        <section>
+          <h2 className="text-xl font-bold mb-4">Festival Lineup</h2>
+          <div className="bg-white rounded-lg shadow-lg">
+            <LineupSchedule />
+          </div>
+        </section>
       </main>
     </div>
   );
