@@ -6,7 +6,6 @@ const Map = dynamic(() => import("../components/Map"), {
 });
 import LineupSchedule from "../components/LineupSchedule";
 import InstallPWA from "../components/InstallPWA";
-import SvgMapLeaflet from "@/components/Map";
 
 export default function Home() {
   return (
@@ -19,7 +18,7 @@ export default function Home() {
         <section>
           <h2 className="text-xl font-bold mb-4">Festival Map</h2>
           <div className="bg-black rounded-lg overflow-hidden">
-            <SvgMapLeaflet />
+            <Map />
           </div>
         </section>
 
