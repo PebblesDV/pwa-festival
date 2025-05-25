@@ -14,6 +14,7 @@ const customIcon = new L.Icon({
 export default function Map() {
   const [position, setPosition] = useState<[number, number] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isLocationDenied, setIsLocationDenied] = useState(false);
 
   // Fallback position (example coordinates - you should replace with your festival location)
   const fallbackPosition: [number, number] = [52.3676, 4.9041]; // Amsterdam coordinates as example
@@ -21,7 +22,7 @@ export default function Map() {
   useEffect(() => {
     if (!navigator.geolocation) {
       setError("Geolocation wordt niet ondersteund door je browser");
-      setPosition(fallbackPosition);
+      setIsLocationDenied(true);
       return;
     }
 
@@ -29,13 +30,19 @@ export default function Map() {
       (pos) => {
         setPosition([pos.coords.latitude, pos.coords.longitude]);
         setError(null);
+        setIsLocationDenied(false);
       },
       (err) => {
         console.error("Geolocation error:", err);
-        setError(
-          "Kan je locatie niet bepalen. Gebruik festival locatie als fallback."
-        );
-        setPosition(fallbackPosition);
+        if (err.code === err.PERMISSION_DENIED) {
+          setError(
+            "Locatie toegang is geweigerd. Zonder locatie kan de kaart niet worden weergegeven."
+          );
+          setIsLocationDenied(true);
+        } else {
+          setError("Kan je locatie niet bepalen. Probeer het later opnieuw.");
+          setIsLocationDenied(true);
+        }
       },
       {
         enableHighAccuracy: true,
@@ -44,6 +51,21 @@ export default function Map() {
       }
     );
   }, []);
+
+  if (isLocationDenied) {
+    return (
+      <div className="p-4 text-center bg-gray-100 rounded-lg">
+        <p className="text-lg font-medium text-gray-800">
+          Kaart niet beschikbaar
+        </p>
+        <p className="text-red-500 mt-2">{error}</p>
+        <p className="mt-4 text-gray-600">
+          Om de kaart te gebruiken, moet je locatietoegang toestaan in je
+          browser instellingen.
+        </p>
+      </div>
+    );
+  }
 
   if (!position) {
     return (
