@@ -5,6 +5,7 @@ const Map = dynamic(() => import("../components/Map"), {
   ssr: false,
 });
 import LineupSchedule from "../components/LineupSchedule";
+import InstallPWA from "../components/InstallPWA";
 
 export default function Home() {
   return (
@@ -28,6 +29,8 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <InstallPWA />
     </div>
   );
 }
