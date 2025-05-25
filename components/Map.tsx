@@ -1,109 +1,51 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, ImageOverlay, Marker, Popup } from "react-leaflet";
+import { CRS, LatLngBounds } from "leaflet";
 import L from "leaflet";
-import { useEffect, useState } from "react";
+import "leaflet/dist/leaflet.css";
+import { useEffect } from "react";
 
-// Optioneel: custom icon voor markers
-const customIcon = new L.Icon({
-  iconUrl: "/marker-icon.png", // Zorg dat deze in /public staat
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
+// Default icon fix (important in Next.js)
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
-export default function Map() {
-  const [position, setPosition] = useState<[number, number] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [isLocationDenied, setIsLocationDenied] = useState(false);
+const SvgMapLeaflet = () => {
+  // This sets the bounds for the image overlay
+  const bounds = new LatLngBounds([
+    [0, 0],
+    [1000, 2000],
+  ]); // [y, x] — match with your image size ratio
 
-  // Fallback position (example coordinates - you should replace with your festival location)
-  const fallbackPosition: [number, number] = [52.3676, 4.9041]; // Amsterdam coordinates as example
-
-  useEffect(() => {
-    if (!navigator.geolocation) {
-      setError("Geolocation wordt niet ondersteund door je browser");
-      setIsLocationDenied(true);
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setPosition([pos.coords.latitude, pos.coords.longitude]);
-        setError(null);
-        setIsLocationDenied(false);
-      },
-      (err) => {
-        console.error("Geolocation error:", err);
-        if (err.code === err.PERMISSION_DENIED) {
-          setError(
-            "Locatie toegang is geweigerd. Zonder locatie kan de kaart niet worden weergegeven."
-          );
-          setIsLocationDenied(true);
-        } else {
-          setError("Kan je locatie niet bepalen. Probeer het later opnieuw.");
-          setIsLocationDenied(true);
-        }
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0,
-      }
-    );
-  }, []);
-
-  if (isLocationDenied) {
-    return (
-      <div className="p-4 text-center bg-gray-100 rounded-lg">
-        <p className="text-lg font-medium text-gray-800">
-          Kaart niet beschikbaar
-        </p>
-        <p className="text-red-500 mt-2">{error}</p>
-        <p className="mt-4 text-gray-600">
-          Om de kaart te gebruiken, moet je locatietoegang toestaan in je
-          browser instellingen.
-        </p>
-      </div>
-    );
-  }
-
-  if (!position) {
-    return (
-      <div className="p-4 text-center">
-        <p>Locatie wordt bepaald...</p>
-        {error && <p className="text-red-500 mt-2">{error}</p>}
-      </div>
-    );
-  }
+  const markers = [
+    { id: 1, name: "Main Stage", position: [850, 300] as [number, number] },
+    { id: 2, name: "Food Court", position: [200, 1800] as [number, number] },
+    { id: 3, name: "Toilets", position: [500, 1000] as [number, number] },
+  ];
 
   return (
     <MapContainer
-      center={position}
-      zoom={16}
-      style={{ height: "400px", width: "100%" }}
+      crs={CRS.Simple}
+      bounds={bounds}
+      minZoom={-2}
+      maxZoom={2}
+      scrollWheelZoom={true}
+      attributionControl={false}
+      zoomControl={false}
+      style={{ height: "400px", width: "100%", backgroundColor: "#3B814A" }}
     >
-      <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        attribution='&copy; <a href="https://carto.com/">CARTO</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      />
-
-      <Marker position={position} icon={customIcon}>
-        <Popup>Jij bent hier!</Popup>
-      </Marker>
-
-      {/* Voorbeeld markers van podia/food stands */}
-      <Marker
-        position={[position[0] + 0.0005, position[1] + 0.0005]}
-        icon={customIcon}
-      >
-        <Popup>Podium 1</Popup>
-      </Marker>
-      <Marker
-        position={[position[0] - 0.0005, position[1] - 0.0005]}
-        icon={customIcon}
-      >
-        <Popup>Food Stand 1</Popup>
-      </Marker>
+      <ImageOverlay url="/kaart.svg" bounds={bounds} />
+      {markers.map((marker) => (
+        <Marker key={marker.id} position={marker.position}>
+          <Popup>{marker.name}</Popup>
+        </Marker>
+      ))}
     </MapContainer>
   );
-}
+};
+
+export default SvgMapLeaflet;
