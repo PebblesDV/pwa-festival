@@ -6,14 +6,13 @@ const Map = dynamic(() => import("../components/Map"), {
 });
 import LineupSchedule from "../components/LineupSchedule";
 import InstallPWA from "../components/InstallPWA";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
     <div className="p-4">
-      <header className="mb-8">
-        <h1 className="text-2xl font-bold">HeartU Festival</h1>
-      </header>
-
+      <Header />
       <main className="flex flex-col gap-8">
         <section>
           <h2 className="text-xl font-bold mb-4">Festival Map</h2>
@@ -31,6 +30,8 @@ export default function Home() {
       </main>
 
       <InstallPWA />
+
+      <Footer />
     </div>
   );
 }
