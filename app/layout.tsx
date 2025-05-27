@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import { Share, Share_Tech } from "next/font/google";
 import "./globals.css";
 import "remixicon/fonts/remixicon.css";
 import "leaflet/dist/leaflet.css";
-
-const shareTech = Share_Tech({
-  variable: "--font-share-tech",
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Festival App",
@@ -48,11 +41,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
-      <body
-        className={`${shareTech.className} ${shareTech.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

@@ -83,7 +83,11 @@ const LineupSchedule = () => {
   return (
     <div className="w-full max-w-6xl mx-auto p-4">
       {/* Day selector and current time */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col justify-between items-left mb-6 gap-2">
+        <div className="text-lg font-semibold text-black">
+          Current Time: {formatTime(currentTime)}
+        </div>
+
         <div className="flex gap-4">
           <button
             className={`px-4 py-2 rounded ${
@@ -105,9 +109,6 @@ const LineupSchedule = () => {
           >
             Sunday
           </button>
-        </div>
-        <div className="text-lg font-semibold text-black">
-          Current Time: {formatTime(currentTime)}
         </div>
       </div>
 
@@ -136,7 +137,7 @@ const LineupSchedule = () => {
             {(Object.keys(lineup[selectedDay]) as Stage[]).map((stage) => (
               <div key={stage} className="flex h-16 mb-4 relative">
                 {/* Stage name */}
-                <div className="w-24 flex items-center  font-medium sticky left-0 text-black bg-white z-100">
+                <div className="w-24 flex items-center font-medium sticky -left-[1px] text-black bg-white z-100">
                   {stageNames[stage]}
                 </div>
 
