@@ -19,7 +19,7 @@
   }
 }
 
-*{
+html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -36,7 +36,7 @@ h1 {
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 26px;
 }
 
 h3, p {

@@ -60,16 +60,16 @@ const LineupSchedule = () => {
     return (duration / totalDuration) * 100;
   };
 
-  // Scroll to current time on initial load
-  useEffect(() => {
-    if (timelineRef.current) {
-      const currentMinutes = dateToMinutes(currentTime);
-      const scrollPosition =
-        (minutesToPosition(currentMinutes) / 100) *
-        timelineRef.current.scrollWidth;
-      timelineRef.current.scrollLeft = Math.max(0, scrollPosition - 100); // 100px offset to show some earlier events
-    }
-  }, [currentTime]);
+  // // Scroll to current time on initial load
+  // useEffect(() => {
+  //   if (timelineRef.current) {
+  //     const currentMinutes = dateToMinutes(currentTime);
+  //     const scrollPosition =
+  //       (minutesToPosition(currentMinutes) / 100) *
+  //       timelineRef.current.scrollWidth;
+  //     timelineRef.current.scrollLeft = Math.max(0, scrollPosition - 100); // 100px offset to show some earlier events
+  //   }
+  // }, [currentTime]);
 
   // Format time for display
   const formatTime = (date: Date): string => {
@@ -89,7 +89,7 @@ const LineupSchedule = () => {
             className={`px-4 py-2 rounded ${
               selectedDay === "saturday"
                 ? "bg-blue-600 text-white"
-                : "bg-gray-200"
+                : "bg-gray-200 text-black"
             }`}
             onClick={() => setSelectedDay("saturday")}
           >
@@ -99,14 +99,14 @@ const LineupSchedule = () => {
             className={`px-4 py-2 rounded ${
               selectedDay === "sunday"
                 ? "bg-blue-600 text-white"
-                : "bg-gray-200"
+                : "bg-gray-200 text-black"
             }`}
             onClick={() => setSelectedDay("sunday")}
           >
             Sunday
           </button>
         </div>
-        <div className="text-lg font-semibold">
+        <div className="text-lg font-semibold text-black">
           Current Time: {formatTime(currentTime)}
         </div>
       </div>
@@ -136,7 +136,7 @@ const LineupSchedule = () => {
             {(Object.keys(lineup[selectedDay]) as Stage[]).map((stage) => (
               <div key={stage} className="flex h-16 mb-4 relative">
                 {/* Stage name */}
-                <div className="w-24 flex items-center font-medium sticky left-0 bg-white z-10">
+                <div className="w-24 flex items-center  font-medium sticky left-0 text-black bg-white z-100">
                   {stageNames[stage]}
                 </div>
 

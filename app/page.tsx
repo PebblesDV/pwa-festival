@@ -1,36 +1,30 @@
 "use client";
-// import Map from "../components/Map";
-import dynamic from "next/dynamic";
-const Map = dynamic(() => import("../components/Map"), {
-  ssr: false,
-});
+
 import LineupSchedule from "../components/LineupSchedule";
 import InstallPWA from "../components/InstallPWA";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="p-4">
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex flex-col gap-8">
-        <section>
-          <h2 className="text-xl font-bold mb-4">Festival Map</h2>
-          <div className="bg-black rounded-lg overflow-hidden">
-            <Map />
-          </div>
-        </section>
+      <main className="flex-1 flex flex-col justify-center gap-6 mx-6 my-4">
+        <Link href="/lineup" className="bg-blue-500 h-40 rounded-lg shadow-lg">
+          <h2>Festival lineup</h2>
+        </Link>
 
-        <section>
-          <h2 className="text-xl font-bold mb-4">Festival Lineup</h2>
-          <div className="bg-white rounded-lg shadow-lg">
-            <LineupSchedule />
-          </div>
-        </section>
+        <Link href="/info" className="bg-blue-500 h-30 rounded-lg shadow-lg">
+          <h2>Festival info</h2>
+        </Link>
+
+        <Link href="/map" className="bg-blue-500 h-60 rounded-lg shadow-lg">
+          <h2>Festival map</h2>
+        </Link>
       </main>
 
       <InstallPWA />
-
       <Footer />
     </div>
   );
