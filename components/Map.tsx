@@ -37,27 +37,69 @@ const SvgMapLeaflet = () => {
   const markers = [
     {
       id: 1,
-      name: "Main Stage",
-      position: [850, 300] as [number, number],
-      icon: createCustomIcon("/markerpurple.png", [32, 32]),
+      name: "Ponton",
+      position: [340, 490] as [number, number],
+      icon: createCustomIcon("/stage1.svg", [32, 32]),
     },
     {
       id: 2,
-      name: "Food Court",
-      position: [200, 1800] as [number, number],
-      icon: createCustomIcon(
-        "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-        [32, 32]
-      ),
+      name: "The Lake",
+      position: [510, 1050] as [number, number],
+      icon: createCustomIcon("/stage2.svg", [32, 32]),
     },
     {
       id: 3,
-      name: "Toilets",
-      position: [500, 1000] as [number, number],
-      icon: createCustomIcon(
-        "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-        [32, 32]
-      ),
+      name: "The Club",
+      position: [570, 1330] as [number, number],
+      icon: createCustomIcon("/stage3.svg", [32, 32]),
+    },
+    {
+      id: 4,
+      name: "Hangar",
+      position: [790, 1690] as [number, number],
+      icon: createCustomIcon("/stage4.svg", [32, 32]),
+    },
+    {
+      id: 5,
+      name: "Food",
+      position: [350, 350] as [number, number],
+      icon: createCustomIcon("/food.svg", [16, 16]),
+    },
+    {
+      id: 6,
+      name: "Ice Cream",
+      position: [310, 590] as [number, number],
+      icon: createCustomIcon("/icecream.svg", [16, 16]),
+    },
+    {
+      id: 7,
+      name: "Bar",
+      position: [250, 340] as [number, number],
+      icon: createCustomIcon("/bar.svg", [16, 16]),
+    },
+    {
+      id: 8,
+      name: "WC",
+      position: [200, 270] as [number, number],
+      icon: createCustomIcon("/wc.svg", [16, 16]),
+    },
+    {
+      id: 9,
+      name: "Merchandise",
+      position: [200, 450] as [number, number],
+      icon: createCustomIcon("/merch.svg", [16, 16]),
+    },
+    {
+      id: 10,
+      name: "Locker",
+      position: [150, 550] as [number, number],
+      icon: createCustomIcon("/locker.svg", [24, 24]),
+    },
+    {
+      id: 11,
+      name: "Locker",
+      position: [160, 660] as [number, number],
+      icon: createCustomIcon("/locker.svg", [24, 24]),
     },
   ];
 
@@ -70,7 +112,7 @@ const SvgMapLeaflet = () => {
       scrollWheelZoom={true}
       attributionControl={false}
       zoomControl={false}
-      style={{ height: "400px", width: "100%", backgroundColor: "#3B814A" }}
+      style={{ height: "600px", width: "100%", backgroundColor: "#3B814A" }}
     >
       <ImageOverlay url="/kaart.svg" bounds={bounds} />
       {markers.map((marker) => (

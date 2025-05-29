@@ -13,9 +13,8 @@ export default function MapSection() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main>
-        <h2 className="text-xl font-bold mb-4">Festival Map</h2>
-        <div className="bg-black rounded-lg overflow-hidden">
+      <main className="flex-1 flex flex-col justify-center gap-6">
+        <div className="rounded-xl overflow-hidden mx-4">
           <Map />
         </div>
       </main>
