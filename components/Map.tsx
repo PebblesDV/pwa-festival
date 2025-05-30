@@ -1,6 +1,12 @@
 "use client";
 
-import { MapContainer, ImageOverlay, Marker, Popup } from "react-leaflet";
+import {
+  MapContainer,
+  ImageOverlay,
+  Marker,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
 import { CRS, LatLngBounds, Icon } from "leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -26,6 +32,15 @@ const createCustomIcon = (
     popupAnchor: [0, -size[1] / 2],
   });
 };
+
+function ClickLogger() {
+  useMapEvents({
+    click: (e) => {
+      console.log(e.latlng);
+    },
+  });
+  return null;
+}
 
 const SvgMapLeaflet = () => {
   // This sets the bounds for the image overlay
@@ -101,6 +116,84 @@ const SvgMapLeaflet = () => {
       position: [160, 660] as [number, number],
       icon: createCustomIcon("/locker.svg", [24, 24]),
     },
+    {
+      id: 12,
+      name: "Merchandise",
+      position: [590, 685] as [number, number],
+      icon: createCustomIcon("/merch.svg", [16, 16]),
+    },
+    {
+      id: 13,
+      name: "Food",
+      position: [550, 740] as [number, number],
+      icon: createCustomIcon("/food.svg", [16, 16]),
+    },
+    {
+      id: 14,
+      name: "Ice Cream",
+      position: [580, 800] as [number, number],
+      icon: createCustomIcon("/icecream.svg", [16, 16]),
+    },
+    {
+      id: 15,
+      name: "WC",
+      position: [700, 980] as [number, number],
+      icon: createCustomIcon("/wc.svg", [16, 16]),
+    },
+    {
+      id: 16,
+      name: "Bar",
+      position: [570, 1010] as [number, number],
+      icon: createCustomIcon("/bar.svg", [16, 16]),
+    },
+    {
+      id: 17,
+      name: "Ice Cream",
+      position: [660, 1210] as [number, number],
+      icon: createCustomIcon("/icecream.svg", [16, 16]),
+    },
+    {
+      id: 18,
+      name: "Merchandise",
+      position: [595, 1265] as [number, number],
+      icon: createCustomIcon("/merch.svg", [16, 16]),
+    },
+    {
+      id: 19,
+      name: "Bar",
+      position: [700, 1380] as [number, number],
+      icon: createCustomIcon("/bar.svg", [16, 16]),
+    },
+    {
+      id: 20,
+      name: "Bar",
+      position: [710, 1530] as [number, number],
+      icon: createCustomIcon("/bar.svg", [16, 16]),
+    },
+    {
+      id: 21,
+      name: "Ice Cream",
+      position: [810, 1580] as [number, number],
+      icon: createCustomIcon("/icecream.svg", [16, 16]),
+    },
+    {
+      id: 22,
+      name: "WC",
+      position: [740, 1740] as [number, number],
+      icon: createCustomIcon("/wc.svg", [16, 16]),
+    },
+    {
+      id: 23,
+      name: "First Aid",
+      position: [680, 450] as [number, number],
+      icon: createCustomIcon("/firstaid.svg", [16, 16]),
+    },
+    {
+      id: 24,
+      name: "Entrance / Exit",
+      position: [90, 1325] as [number, number],
+      icon: createCustomIcon("/entrance.svg", [60, 60]),
+    },
   ];
 
   return (
@@ -120,6 +213,7 @@ const SvgMapLeaflet = () => {
           <Popup>{marker.name}</Popup>
         </Marker>
       ))}
+      <ClickLogger />
     </MapContainer>
   );
 };

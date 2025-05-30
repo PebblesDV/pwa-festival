@@ -3,6 +3,7 @@
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import dynamic from "next/dynamic";
+import { useMap, useMapEvents } from "react-leaflet";
 
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
