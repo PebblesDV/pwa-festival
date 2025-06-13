@@ -1,3 +1,19 @@
+Fesitval app gemaakt met NextJS en TailwindCSS
+Bestaat uit homepage, festival line-up, map, en festival info
+
+Op de map kunnen icons aangeklikt worden. Er wordt info laten zien over wat er op die plek is.
+Bij de stage icons wordt de timetable van die stage laten zien.
+
+Bij de line-up kan je per tijd de acts checken. 
+Je kunt op acts klikken en meer info over de artiest lezen.
+
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
