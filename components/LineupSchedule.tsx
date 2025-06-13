@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import lineup from "../lib/lineup";
+import { useRouter } from "next/navigation";
 
 type Stage = "poton" | "theLake" | "theClub" | "hanggar";
 type Day = "saturday" | "sunday";
@@ -20,6 +21,7 @@ const stageNames: Record<Stage, string> = {
 };
 
 const LineupSchedule = () => {
+  const router = useRouter();
   const [selectedDay, setSelectedDay] = useState<Day>("sunday");
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
   const timelineRef = useRef<HTMLDivElement>(null);
@@ -163,12 +165,17 @@ const LineupSchedule = () => {
                       return (
                         <div
                           key={index}
-                          className="absolute h-12 bg-blue-600 rounded flex items-center justify-center text-white text-sm p-2 cursor-pointer hover:bg-blue-700 transition-colors"
+                          className="absolute h-12 rounded flex items-center justify-center text-white text-sm p-2 transition-all duration-200 ease-in-out transform active:scale-[0.95] active:shadow-lg bg-blue-600"
                           style={{
                             left: `${left}%`,
                             width: `${width}%`,
                           }}
                           title={`${performance.name} (${performance.start} - ${performance.end})`}
+                          onClick={() =>
+                            router.push(
+                              `/artist/${encodeURIComponent(performance.name)}`
+                            )
+                          }
                         >
                           <span className="truncate">{performance.name}</span>
                         </div>

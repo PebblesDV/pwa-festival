@@ -10,7 +10,8 @@ import {
 import { CRS, LatLngBounds, Icon } from "leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import lineup from "../lib/lineup";
 
 // Default icon fix (important in Next.js)
 L.Icon.Default.mergeOptions({
@@ -33,6 +34,16 @@ const createCustomIcon = (
   });
 };
 
+// Map stage names to lineup data keys
+const stageToLineupKey: Record<string, keyof typeof lineup.saturday> = {
+  Ponton: "poton",
+  "The Lake": "theLake",
+  "The Club": "theClub",
+  Hangar: "hanggar",
+};
+
+type Day = "saturday" | "sunday";
+
 function ClickLogger() {
   useMapEvents({
     click: (e) => {
@@ -43,6 +54,8 @@ function ClickLogger() {
 }
 
 const SvgMapLeaflet = () => {
+  const [selectedDay, setSelectedDay] = useState<Day>("saturday");
+
   // This sets the bounds for the image overlay
   const bounds = new LatLngBounds([
     [0, 0],
@@ -208,11 +221,56 @@ const SvgMapLeaflet = () => {
       style={{ height: "600px", width: "100%", backgroundColor: "#3B814A" }}
     >
       <ImageOverlay url="/kaart.svg" bounds={bounds} />
-      {markers.map((marker) => (
-        <Marker key={marker.id} position={marker.position} icon={marker.icon}>
-          <Popup>{marker.name}</Popup>
-        </Marker>
-      ))}
+      {markers.map((marker) => {
+        const isStage = marker.id <= 4; // First 4 markers are stages
+        const lineupKey = isStage ? stageToLineupKey[marker.name] : null;
+
+        return (
+          <Marker key={marker.id} position={marker.position} icon={marker.icon}>
+            <Popup>
+              <div className="text-black">
+                <h3 className="font-bold text-lg mb-2">{marker.name}</h3>
+                {isStage && lineupKey && (
+                  <div className="mt-2">
+                    <div className="flex gap-2 mb-3">
+                      <button
+                        className={`px-3 py-1 rounded text-sm ${
+                          selectedDay === "saturday"
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-200 text-black"
+                        }`}
+                        onClick={() => setSelectedDay("saturday")}
+                      >
+                        Saturday
+                      </button>
+                      <button
+                        className={`px-3 py-1 rounded text-sm ${
+                          selectedDay === "sunday"
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-200 text-black"
+                        }`}
+                        onClick={() => setSelectedDay("sunday")}
+                      >
+                        Sunday
+                      </button>
+                    </div>
+                    <ul className="list-disc pl-4">
+                      {lineup[selectedDay][lineupKey].map(
+                        (performance, index) => (
+                          <li key={index}>
+                            {performance.name} ({performance.start} -{" "}
+                            {performance.end})
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </Popup>
+          </Marker>
+        );
+      })}
       <ClickLogger />
     </MapContainer>
   );

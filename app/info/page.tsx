@@ -55,19 +55,40 @@ export default function InfoPage() {
 
       <main className="flex-grow">
         <div className="container mx-auto py-8 px-4 flex flex-col gap-10">
-          <h1 className="text-3xl text-black">Festival Information</h1>
+          <div className="flex flex-col gap-4">
+            <h1 className="text-3xl text-black">Festival Information</h1>
 
-          <div className="flex flex-col gap-2">
+            <p className="text-black">
+              Het ❤️U Festival is voor (nieuwe) studenten in de regio Utrecht en
+              is een aanvulling op UIT.
+            </p>
+
+            <div className="flex flex-col gap-2">
+              <div className="text-white bg-red-500 w-full rounded-lg items-center px-4 py-4 flex gap-2">
+                <i className="ri-map-pin-line text-xl text-white rounded-full"></i>
+                <p>Strijkviertelweg, Utrecht</p>
+              </div>
+
+              <div className="text-white bg-cyan-600 w-full rounded-lg items-center px-4 py-4 flex gap-2">
+                <i className="ri-calendar-schedule-line text-xl text-white rounded-full"></i>
+                <p>
+                  Zaterdag 6 september 2025 <br /> 12:00 tot 23:00 uur
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
             <h2 className="text-black">Transport</h2>
             <FAQ items={transportItems} />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             <h2 className="text-black">FAQ</h2>
             <FAQ items={faqItems} />
           </div>
 
-          <div className="text-black flex flex-col gap-2">
+          <div className="text-black flex flex-col gap-4">
             <h2>Golden-GLU</h2>
 
             <div>
